@@ -34,6 +34,8 @@ AUDIO_FEATURE_ENABLED_GEF_SUPPORT := true
 AUDIO_FEATURE_ENABLED_SSR := true
 BOARD_SUPPORTS_SOUND_TRIGGER := true
 BOARD_USES_ALSA_AUDIO := true
+USE_CUSTOM_AUDIO_POLICY := 1
+USE_XML_AUDIO_POLICY_CONF := 1
 
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "qualcomm-hidl"
@@ -61,25 +63,17 @@ TARGET_USES_ION := true
 TARGET_USES_QTI_MAPPER_2_0 := true
 TARGET_USES_QTI_MAPPER_EXTENSIONS_1_1 := true
 
-# Lineage Health HAL
-TARGET_HEALTH_CHARGING_CONTROL_SUPPORTS_BYPASS := false
-
 # Filesystem
 TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/config.fs
 
 # Kernel
-BOARD_KERNEL_CMDLINE := \
-    androidboot.boot_devices=soc/c0c4000.sdhci \
-    console=ttyMSM0,115200n8 \
-    androidboot.console=ttyMSM0 \
-    earlycon=msm_serial_dm,0xc170000 \
-    androidboot.hardware=qcom \
-    user_debug=31 \
-    msm_rtb.filter=0x37 \
-    ehci-hcd.park=3 \
-    service_locator.enable=1 \
-    loop.max_part=7 \
-    printk.devkmsg=on
+BOARD_KERNEL_CMDLINE := console=ttyMSM0,115200n8 androidboot.console=ttyMSM0
+BOARD_KERNEL_CMDLINE += earlycon=msm_serial_dm,0xc170000 androidboot.hardware=qcom
+BOARD_KERNEL_CMDLINE += user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3
+BOARD_KERNEL_CMDLINE += sched_enable_hmp=1 sched_enable_power_aware=1
+BOARD_KERNEL_CMDLINE += service_locator.enable=1 loop.max_part=7
+BOARD_KERNEL_CMDLINE += printk.devkmsg=on
+#BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 BOARD_KERNEL_BASE        := 0x00000000
 BOARD_KERNEL_PAGESIZE    := 4096
 BOARD_KERNEL_IMAGE_NAME  := Image.gz-dtb
@@ -94,20 +88,20 @@ LOC_HIDL_VERSION := 4.0
 
 # HIDL
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
+    $(DEVICE_PATH)/framework_compatibility_matrix.xml \
     hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml \
     hardware/qcom-caf/common/vendor_framework_compatibility_matrix_legacy.xml \
     vendor/lineage/config/device_framework_matrix.xml
 DEVICE_FRAMEWORK_MANIFEST_FILE := $(DEVICE_PATH)/framework_manifest.xml
 DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
 DEVICE_MATRIX_FILE := $(DEVICE_PATH)/compatibility_matrix.xml
-DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := $(DEVICE_PATH)/framework_compatibility_matrix.xml
 
 # Init
 TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_X00QD
 TARGET_RECOVERY_DEVICE_MODULES := libinit_X00QD
 
-# Lights
-TARGET_PROVIDES_LIBLIGHT := true
+# Lineage Health
+TARGET_HEALTH_CHARGING_CONTROL_SUPPORTS_BYPASS := false
 
 # LMKD
 TARGET_LMKD_STATS_LOG := true
@@ -177,14 +171,11 @@ PRODUCT_SOONG_NAMESPACES += $(DEVICE_PATH)
 BOARD_VNDK_VERSION := current
 
 # Vendor Security patch level
-VENDOR_SECURITY_PATCH := 2020-05-05
+VENDOR_SECURITY_PATCH := 2020-12-05
 
 # Verity
 # Only needed for signing
 BOARD_AVB_ENABLE := false
-
-# Vulkan
-TARGET_USES_VULKAN := false
 
 # WiFi
 BOARD_WLAN_DEVICE := qcwcn

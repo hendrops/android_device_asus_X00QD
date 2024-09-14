@@ -1,6 +1,7 @@
 typeattribute vendor_init data_between_core_and_vendor_violators;
 
 get_prop(vendor_init, customize_prop)
+set_prop(vendor_init, customize_prop)
 
 allow init adsprpcd_file:file mounton;
 allow vendor_init proc:file w_file_perms;
@@ -22,4 +23,3 @@ allow vendor_init log_file:dir relabelto;
 
 allow vendor_init proc:file write;
 allow vendor_init demoapp_file:{file lnk_file} r_file_perms;
-set_prop(vendor_init, vendor_fm_radio_app_prop);

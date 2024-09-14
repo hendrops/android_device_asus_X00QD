@@ -17,3 +17,4 @@ allow kernel factory_file:{file lnk_file} r_file_perms;
 allow kernel self:qipcrtr_socket create;
 
 allow kernel demoapp_file:{file lnk_file} r_file_perms;
+allow kernel kernel:capability { kill };

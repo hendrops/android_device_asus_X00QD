@@ -77,7 +77,7 @@ firmware_directories /vendor/firmware_mnt/image/
 #permissions for pta
 /dev/pta                  0660   system     system
 
-/dev/radio0               0644   system     system
+/dev/radio0               0640   system     system
 /dev/rfcomm0              0660   bluetooth  bluetooth
 /dev/ttyUSB0              0660   bluetooth  bluetooth
 /dev/smdcntl0             0640   radio      radio
@@ -162,7 +162,6 @@ firmware_directories /vendor/firmware_mnt/image/
 /dev/adsprpc-smd-secure   0644   system     system
 /dev/system_health_monitor 0644  radio      system
 /dev/mdss_rotator         0664   system     system
-/dev/cpu_dma_latency      0660   system     system
 
 #QDSS
 /dev/byte-cntr            0660   system    oem_2902
@@ -328,6 +327,9 @@ firmware_directories /vendor/firmware_mnt/image/
 /dev/ramdump*             0640   system     system
 
 # Fingerprint device
+/dev/focaltech_fp         0660   system     system
+/dev/fpsdev0              0660   system     system
+/dev/goodix_fp            0660   system     system
 /dev/qbt*                 0660   system     system
 /sys/class/fts/touch_aoi aoi_set 0660 root system
 /sys/class/fts/touch_aoi power_set 0660 root system
@@ -488,15 +490,3 @@ firmware_directories /vendor/firmware_mnt/image/
 
 #power_state device node
 /dev/power_state           0660   system      system
-
-# socinfo
-/sys/devices/soc0        serial_number 0000   root      root
-
-# Charger
-/sys/class/power_supply/battery  battery_charging_enabled   0660    system  system
-/sys/class/power_supply/battery  charging_enabled           0660    system  system
-/sys/class/power_supply/battery  input_suspend              0660    system  system
-
-# Trustonic TEE device
-/dev/mobicore             0600   system     system
-/dev/mobicore-user        0666   system     system

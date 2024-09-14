@@ -31,7 +31,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <resources>
     <!-- Enable doze mode -->
-    <bool name="doze_display_state_supported">true</bool>
+    <bool name="doze_display_state_supported">false</bool>
 
     <!-- Doze: should the pickup sensor be used as a pulse signal? -->
     <bool name="doze_pulse_on_pick_up">true</bool>
@@ -42,14 +42,32 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <!-- Doze: check proximity sensor before pulsing from intent? -->
     <bool name="doze_proximity_check_before_pulse_intent">true</bool>
 
-    <!-- Max visible notification icons -->
-    <integer name="config_maxVisibleNotificationIconsWhenDark">6</integer>
-
     <!-- Doze: pulse parameter - delay to wait for the screen to wake up after an intent -->
     <integer name="doze_pulse_delay_in_intent">0</integer>
+
+    <!-- If not zero, limits the internal screen recorder's framerate to the set value. -->
+    <integer name="config_screenRecorderMaxFramerate">60</integer>
+
+    <!-- System icon area layout weight -->
+    <item name="system_icon_area_weight" format="float" type="integer">1.25</item>
+ 
+    <!-- Max visible notification icons -->
+    <integer name="config_maxVisibleNotificationIcons">6</integer>
+    <integer name="config_maxVisibleNotificationIconsWhenDark">7</integer>
     
-        <!-- If not empty, sets the AVC codec profile level used for the internal screen recorder.
-         Possible values: 3, 3.1, 3.2, 4, 4.1, 4.2
-    -->
-    <string name="config_screenRecorderAVCProfileLevel" translatable="false">3</string>
+    <!-- Tiles to auto add to Quick Settings upon first change of a given secure setting.
+         The syntax is setting-name:spec. If the tile is a TileService, the spec should be specified
+         as custom(package/class). Relative class name is supported. -->
+    <string-array name="config_quickSettingsAutoAdd" translatable="false">
+        <item>accessibility_display_inversion_enabled:inversion</item>
+        <item>wind_down_first_time_setup:custom(com.google.android.apps.wellbeing/.screen.ui.GrayscaleTileService)</item>
+        <item>focus_mode_first_time_setup:custom(com.google.android.apps.wellbeing/.focusmode.quicksettings.FocusModeTileService)</item>
+    </string-array>
+
+    <!-- Should we vibrate on an icon animation of the shelf. This should only be active if the
+     vibrator is capable of subtle vibrations -->
+    <bool name="config_vibrateOnIconAnimation">true</bool>
+
+    <!-- Unlock ripple animation -->
+    <bool name="config_enableUnlockRippleAnimation">false</bool>
 </resources>

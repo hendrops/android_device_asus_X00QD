@@ -2118,8 +2118,6 @@
         <ctl name="RX1 MIX1 INP1" value="RX1" />
         <ctl name="RX2 MIX1 INP1" value="RX2" />
         <ctl name="RDAC2 MUX" value="RX2" />
-        <ctl name="RX1 Digital Volume" value="73" />
-        <ctl name="RX2 Digital Volume" value="73" />
         <ctl name="HPHL" value="Switch" />
         <ctl name="HPHR" value="Switch" />
     </path>
@@ -2136,20 +2134,13 @@
     </path>
 
     <path name="headphones-high-imp">
-        <ctl name="INT0_MI2S_RX Channels" value="Two" />
-        <ctl name="RX1 MIX1 INP1" value="RX1" />
-        <ctl name="RX2 MIX1 INP1" value="RX2" />
-        <ctl name="RDAC2 MUX" value="RX2" />
-        <ctl name="RX1 Digital Volume" value="84" />
-        <ctl name="RX2 Digital Volume" value="84" />
-        <ctl name="HPHL" value="Switch" />
-        <ctl name="HPHR" value="Switch" />
+        <path name="headphones" />
     </path> 
 
     <path name="headphones-mono">
         <ctl name="INT0_MI2S_RX Channels" value="One" />
         <ctl name="RX1 MIX1 INP1" value="RX1" />
-        <ctl name="RX1 Digital Volume" value="73" />
+        <ctl name="RX1 Digital Volume" value="84" />
         <ctl name="HPHL" value="Switch" />
         <ctl name="HPHR" value="Zero" />
     </path>
