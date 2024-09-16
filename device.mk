@@ -476,6 +476,10 @@ PRODUCT_PACKAGES += \
     android.hardware.vr@1.0-service \
     vr.sdm660
 
+# VNDK
+PRODUCT_COPY_FILES += \
+    prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/vndk-core/libcrypto.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libcrypto-v34.so \
+
 # Wifi
 PRODUCT_PACKAGES += \
     android.hardware.wifi-service \
