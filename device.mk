@@ -422,6 +422,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-impl \
     android.hardware.sensors@1.0-service \
+    libpower.vendor \
+    android.frameworks.sensorservice@1.0 \
     android.frameworks.sensorservice@1.0.vendor
 
 PRODUCT_COPY_FILES += \
@@ -457,7 +459,8 @@ PRODUCT_PACKAGES += \
 
 # Vibrator
 PRODUCT_PACKAGES += \
-    vendor.qti.hardware.vibrator.service
+    android.hardware.vibrator@1.0-impl \
+    android.hardware.vibrator@1.0-service
 
 # FIXME: master: compat for libprotobuf
 # See https://android-review.googlesource.com/c/platform/prebuilts/vndk/v28/+/1109518
