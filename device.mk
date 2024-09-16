@@ -480,6 +480,7 @@ PRODUCT_PACKAGES += \
     android.hardware.wifi-service \
     hostapd \
     libwifi-hal-qcom \
+    libcld80211 \
     libwpa_client \
     TetheringConfigOverlay \
     WifiOverlay \
