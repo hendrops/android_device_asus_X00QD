@@ -5,18 +5,9 @@ type bat_file, file_type;
 type factory_file, file_type;
 type xrom_file, file_type;
 
-type debugfs_power_stats, fs_type, debugfs_type;
-
 # Data
 type batterystats_file, file_type;
 
-# FPS Info
-type sysfs_fps, sysfs_type, fs_type;
-
-type proc_sysctl_schedboost, proc_type, fs_type;
 type public_adsprpcd_file, file_type;
-type sysfs_msm_subsys, sysfs_type, fs_type;
-type sysfs_rpm, sysfs_type, fs_type;
-type sysfs_system_sleep_stats, sysfs_type, fs_type;
 type sysfs_call_status, sysfs_type, fs_type;
 type sysfs_iio_devices, sysfs_type, fs_type;

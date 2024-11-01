@@ -26,6 +26,14 @@
             <instance>default</instance>
         </interface>
     </hal>
+   <hal format="aidl" optional="true">
+    <name>android.hardware.light</name>
+    <version>2</version>
+    <interface>
+        <name>ILights</name>
+        <instance>default</instance>
+    </interface>
+</hal>
     <hal format="hidl">
         <name>android.hardware.vibrator</name>
         <transport>hwbinder</transport>

@@ -34,8 +34,7 @@ TARGET_VENDOR_PRODUCT_NAME := X00QD
 TARGET_VENDOR_DEVICE_NAME := X00QD
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    TARGET_DEVICE=X00QD \
-    PRODUCT_NAME=WW_Phone \
-    PRIVATE_BUILD_DESC="WW_Phone-user 9 PPR1.180610.009 16.0615.2006.131-0 release-keys"
-
-BUILD_FINGERPRINT := asus/WW_Phone/ASUS_X00QD:9/PPR1.180610.009/16.0615.2006.131-0:user/release-keys
+    DeviceName=X00QD \
+    DeviceProduct=WW_Phone \
+    BuildDesc="WW_Phone-user 9 PPR1.180610.009 16.0615.2006.131-0 release-keys" \
+    BuildFingerprint=asus/WW_Phone/ASUS_X00QD:9/PPR1.180610.009/16.0615.2006.131-0:user/release-keys

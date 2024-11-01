@@ -6,7 +6,12 @@
 
 DEVICE_PATH := device/asus/X00QD
 
+# Broken Rules
+BUILD_BROKEN_DUP_RULES := true
+BUILD_BROKEN_MISSING_REQUIRED_MODULES := true
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
+BUILD_BROKEN_ENFORCE_SYSPROP_OWNER := true
+BUILD_BROKEN_VENDOR_PROPERTY_NAMESPACE := true
 
 # Architecture
 TARGET_ARCH := arm64
@@ -34,8 +39,6 @@ AUDIO_FEATURE_ENABLED_GEF_SUPPORT := true
 AUDIO_FEATURE_ENABLED_SSR := true
 BOARD_SUPPORTS_SOUND_TRIGGER := true
 BOARD_USES_ALSA_AUDIO := true
-USE_CUSTOM_AUDIO_POLICY := 1
-USE_XML_AUDIO_POLICY_CONF := 1
 
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "qualcomm-hidl"
@@ -96,6 +99,9 @@ DEVICE_FRAMEWORK_MANIFEST_FILE := $(DEVICE_PATH)/framework_manifest.xml
 DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
 DEVICE_MATRIX_FILE := $(DEVICE_PATH)/compatibility_matrix.xml
 
+# HWUI
+HWUI_COMPILE_FOR_PERF := true
+
 # Init
 TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_X00QD
 TARGET_RECOVERY_DEVICE_MODULES := libinit_X00QD
@@ -129,7 +135,6 @@ BOARD_ROOT_EXTRA_FOLDERS := APD asdf odm oem
 
 BOARD_ROOT_EXTRA_SYMLINKS := \
     /mnt/vendor/persist:/persist \
-    /vendor/bt_firmware:/bt_firmware \
     /vendor/dsp:/dsp \
     /vendor/firmware_mnt:/firmware \
     /vendor/ADF:/ADF \
@@ -138,6 +143,9 @@ BOARD_ROOT_EXTRA_SYMLINKS := \
 # Platform
 TARGET_BOARD_PLATFORM := sdm660
 TARGET_ENFORCES_QSSI := true
+
+# Power
+TARGET_TAP_TO_WAKE_NODE := "/sys/bus/i2c/devices/4-0038/dclick_mode"
 
 # Properties
 TARGET_ODM_PROP += $(DEVICE_PATH)/odm.prop
@@ -159,6 +167,7 @@ TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)
 ENABLE_VENDOR_RIL_SERVICE := true
 
 # Sepolicy
+include device/lineage/sepolicy/libperfmgr/sepolicy.mk
 include device/qcom/sepolicy-legacy-um/SEPolicy.mk
 
 BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor

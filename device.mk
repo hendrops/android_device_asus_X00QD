@@ -4,21 +4,21 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-PRODUCT_COMPRESSED_APEX := false
+# Add common definitions for Qualcomm
+$(call inherit-product, hardware/qcom-caf/common/common.mk)
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/non_ab_device.mk)
-
-# PRODUCT_SHIPPING_API_LEVEL indicates the first api level, device has been commercially launched on.
-PRODUCT_SHIPPING_API_LEVEL := 27
 
 # Default is nosdcard, S/W button enabled in resource
 PRODUCT_CHARACTERISTICS := nosdcard
+
+# Boot animation
+TARGET_SCREEN_HEIGHT := 2160
+TARGET_SCREEN_WIDTH := 1080
 
 # Audio
 PRODUCT_PACKAGES += \
     android.hardware.audio@6.0-impl \
     android.hardware.audio.effect@6.0-impl \
-    android.hardware.audio.sounddose-vendor-impl \
     android.hardware.audio.service
 
 PRODUCT_PACKAGES += \
@@ -55,17 +55,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     AntHalService-Soong \
     com.dsi.ant@1.0.vendor
-
-# ATRACE_HAL
-PRODUCT_PACKAGES += \
-    android.hardware.atrace@1.0-service \
-    android.hardware.atrace@1.0.vendor
-
-PRODUCT_COPY_FILES += \
-    frameworks/av/services/audiopolicy/enginedefault/config/example/phone/audio_policy_engine_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_engine_configuration.xml \
-    frameworks/av/services/audiopolicy/enginedefault/config/example/phone/audio_policy_engine_default_stream_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_engine_default_stream_volumes.xml \
-    frameworks/av/services/audiopolicy/enginedefault/config/example/phone/audio_policy_engine_product_strategies.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_engine_product_strategies.xml \
-    frameworks/av/services/audiopolicy/enginedefault/config/example/phone/audio_policy_engine_stream_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_engine_stream_volumes.xml
 
 # Bluetooth
 PRODUCT_PACKAGES += \
@@ -224,7 +213,7 @@ PRODUCT_PACKAGES += \
 
 # Lights
 PRODUCT_PACKAGES += \
-    android.hardware.light-service.asus_sdm660
+    android.hardware.light-service.sdm660
 
 # Lineage Health
 PRODUCT_PACKAGES += \
@@ -246,10 +235,45 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media/media_codecs_performance.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance.xml \
     $(LOCAL_PATH)/configs/media/media_profiles_vendor.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_vendor.xml
 
-PRODUCT_COPY_FILES += \
-    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_telephony.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml
+PRODUCT_PACKAGES += \
+    libcodec2_hidl@1.2.vendor \
+    libcodec2_soft_common.vendor \
+    libcodec2_vndk.vendor \
+    libgui_vendor \
+    libsfplugin_ccodec_utils.vendor \
+    libcodec2_soft_aacdec \
+    libcodec2_soft_aacenc \
+    libcodec2_soft_amrnbdec \
+    libcodec2_soft_amrwbdec \
+    libcodec2_soft_amrnbenc \
+    libcodec2_soft_amrwbenc \
+    libcodec2_soft_av1dec_aom \
+    libcodec2_soft_av1dec_gav1 \
+    libcodec2_soft_avcdec \
+    libcodec2_soft_avcenc \
+    libcodec2_soft_common \
+    libcodec2_soft_flacdec \
+    libcodec2_soft_flacenc \
+    libcodec2_soft_g711alawdec \
+    libcodec2_soft_g711mlawdec \
+    libcodec2_soft_gsmdec \
+    libcodec2_soft_h263dec \
+    libcodec2_soft_h263enc \
+    libcodec2_soft_hevcdec \
+    libcodec2_soft_hevcenc \
+    libcodec2_soft_mp3dec \
+    libcodec2_soft_mpeg2dec \
+    libcodec2_soft_mpeg4dec \
+    libcodec2_soft_mpeg4enc \
+    libcodec2_soft_opusdec \
+    libcodec2_soft_opusenc \
+    libcodec2_soft_rawdec \
+    libcodec2_soft_vorbisdec \
+    libcodec2_soft_vp8dec \
+    libcodec2_soft_vp8enc \
+    libcodec2_soft_vp9dec \
+    libcodec2_soft_vp9enc \
+    libcodec2_soft_xaacdec
 
 # Network
 PRODUCT_PACKAGES += \
@@ -279,16 +303,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libc2dcolorconvert \
     libmm-omxcore \
-    libOmxAacEnc \
-    libOmxAmrEnc \
     libOmxCore \
-    libOmxEvrcEnc \
-    libOmxG711Enc \
-    libOmxQcelp13Enc \
     libOmxVdec \
     libOmxVenc \
     libstagefrighthw \
-    libstagefright_softomx_plugin.vendor
+    android.hardware.media.c2@1.0.vendor
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
@@ -296,10 +315,6 @@ DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay-lineage
 
 PRODUCT_ENFORCE_RRO_TARGETS := *
-
-# Perf
-PRODUCT_PACKAGES += \
-    libqti-perfd-client
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -341,9 +356,7 @@ PRODUCT_COPY_FILES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power-service.asus_sdm660-libperfmgr \
-    android.hardware.power.stats@1.0-service.mock \
-    android.hardware.power.stats@1.0.vendor
+    android.hardware.power-service.lineage-libperfmgr
 
 # Powerhint
 PRODUCT_COPY_FILES += \
@@ -389,17 +402,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     init.qcom.post_boot.sh \
     init.qcom.sh \
+    init.qcom.usb.sh \
     init.qti.dcvs.sh
 
-# Remove unwanted packages
-PRODUCT_PACKAGES += \
-    RemovePackages
-
-# Shims
 PRODUCT_PACKAGES += \
     fstab.qcom \
     init.qcom.asus.rc \
-    init.qcom.power.rc \
     init.qcom.rc \
     init.recovery.qcom.rc \
     init.target.rc \
@@ -418,15 +426,16 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/seccomp/atfwd@2.0.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/atfwd@2.0.policy \
     $(LOCAL_PATH)/configs/seccomp/imsrtp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/imsrtp.policy \
     $(LOCAL_PATH)/configs/seccomp/mediacodec-seccomp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy \
+    $(LOCAL_PATH)/configs/seccomp/mediaextractor-seccomp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediaextractor.policy \
     $(LOCAL_PATH)/configs/seccomp/vendor.qti.hardware.dsp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/vendor.qti.hardware.dsp.policy
 
 # Sensors
 PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-impl \
     android.hardware.sensors@1.0-service \
-    libpower.vendor \
     android.frameworks.sensorservice@1.0 \
-    android.frameworks.sensorservice@1.0.vendor
+    android.frameworks.sensorservice@1.0.vendor \
+    libpower.vendor
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sensors/hals.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/hals.conf
@@ -442,6 +451,7 @@ PRODUCT_SOONG_NAMESPACES += \
 PRODUCT_PACKAGES += \
     ims-ext-common \
     ims_ext_common.xml \
+    libion.vendor \
     qti-telephony-hidl-wrapper \
     qti_telephony_hidl_wrapper.xml \
     qti-telephony-utils \
@@ -490,7 +500,13 @@ PRODUCT_PACKAGES += \
     TetheringConfigOverlay \
     WifiOverlay \
     wpa_supplicant \
-    wpa_supplicant.conf
+    wpa_supplicant.conf \
+    wpa_cli
+
+# WiFi firmware symlinks
+PRODUCT_PACKAGES += \
+    firmware_wlan_mac.bin_symlink \
+    firmware_WCNSS_qcom_cfg.ini_symlink
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \

@@ -3,11 +3,10 @@ af.fast_track_multiplier=1
 audio.deep_buffer.media=true
 audio.offload.min.duration.secs=30
 audio.offload.video=true
-persist.vendor.audio_hal.dsp_bit_width_enforce_mode=24
-persist.audio.format.24bit=true
 persist.vendor.audio.fluence.voicecall=true
+persist.vendor.audio.fluence.voicecomm=true
 persist.vendor.audio.fluence.voicerec=false
-persist.vendor.audio.fluence.speaker=true
+persist.vendor.audio.fluence.speaker=false
 persist.vendor.audio.hifi.int_codec=true
 persist.vendor.audio.hw.binder.size_kbyte=1024
 persist.vendor.audio.ras.enabled=false
@@ -69,8 +68,6 @@ vendor.audio.offload.track.enable=true
 vendor.audio.parser.ip.buffer.size=262144
 vendor.audio.safx.pbe.enabled=false
 vendor.audio.spkr_prot.tx.sampling_rate=48000
-vendor.audio.use.sw.alac.decoder=true
-vendor.audio.use.sw.ape.decoder=true
 vendor.audio.volume.headset.gain.depcal=true
 vendor.audio.tunnel.encode=false
 vendor.voice.path.for.pcm.voip=false
@@ -110,10 +107,6 @@ persist.vendor.camera.mpo.disabled=1
 persist.vendor.camera.preview.ubwc=0
 persist.vendor.camera.HAL3.enabled=1
 
-# Codec2 switch
-debug.stagefright.omx_default_rank.sw-audio=1
-debug.stagefright.omx_default_rank=0
-
 # Dalvik dex2oat
 dalvik.vm.dex2oat64.enabled=true
 
@@ -131,26 +124,19 @@ debug.sf.enable_transaction_tracing=false
 debug.sf.hw=1
 debug.sf.layer_caching_active_layer_timeout_ms=1000
 debug.sf.recomputecrop=0
-debug.sf.disable_client_composition_cache=1
 debug.sf.predict_hwc_composition_strategy=0
-persist.hwc.mdpcomp.enable=true
 ro.opengles.version=196610
 vendor.display.disable_rotator_downscale=1
+vendor.display.disable_scaler=1
 
 # DRM
 drm.service.enabled=true
 
 # FM
-vendor.hw.fm.init=0
 vendor.fm.a2dp.conc.disabled=false
 
 # FRP
 ro.frp.pst=/dev/block/bootdevice/by-name/frp
-
-# Perf
-ro.vendor.extension_library=libqti-perfd-client.so
-ro.vendor.perf.scroll_opt=true
-
 
 # Graphics
 debug.renderengine.backend=skiaglthreaded
@@ -159,9 +145,6 @@ ro.hardware.vulkan=adreno
 
 # HEH filename encryption is being dropped
 ro.crypto.volume.filenames_mode=aes-256-cts
-
-# NTP Server
-persist.backup.ntpServer=0.pool.ntp.org
 
 # Radio
 persist.radio.multisim.config=dsds
@@ -179,7 +162,6 @@ ro.telephony.default_network=20,20
 ro.com.android.dataroaming=false
 
 # Radio - IMS
-persist.dbg.ims_volte_enable=1
 persist.dbg.volte_avail_ovr=1
 persist.dbg.vt_avail_ovr=1
 persist.dbg.wfc_avail_ovr=1
@@ -193,7 +175,7 @@ ro.vendor.sensors.facing=false
 sys.vendor.shutdown.waittime=500
 
 # SoC
-ro.soc.manufacturer=QTI
+ro.soc.manufacturer=Qualcomm
 ro.soc.model=SDM660
 
 # Surfaceflinger

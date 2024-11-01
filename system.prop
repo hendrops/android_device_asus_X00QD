@@ -2,20 +2,8 @@
 # system.prop for sdm660
 #
 
-# Audio
-qcom.hw.aac.encoder=true
-ro.asus.audio.dualSPK=true
-ro.config.media_vol_steps=25
-ro.config.vc_call_vol_steps=7
-tunnel.audio.encode=true
-audio.sys.noisy.broadcast.delay=600
-audio.sys.offload.pstimeout.secs=3
-persist.audio.fluence.voicecomm=true
-
 # Bluetooth
 bt.max.hfpclient.connections=1
-bluetooth.hci.erroneous_data_reporting.enabled=false
-persist.vendor.bt.a2dp_offload_cap=sbc-aptx-aptxhd-aac
 
 # Camera
 persist.vendor.camera.privapp.list=org.codeaurora.snapcam
@@ -31,12 +19,16 @@ persist.vendor.data.mode=concurrent
 ro.vendor.use_data_netmgrd=true
 
 # Display
+persist.hwc.mdpcomp.enable=true
 vendor.display.enable_default_color_mode=1
 vendor.gralloc.enable_fb_ubwc=1
 vendor.display.disable_skip_validate=1
 
 # Filesystem
 fs_mgr.overlayfs.prefer_cache_backing_storage=true
+
+# FM
+vendor.hw.fm.init=0
 
 # GMS
 ro.com.google.clientidbase.ms=android-asus-tpin
@@ -45,6 +37,12 @@ ro.com.google.rlz_ap_whitelist=y0,y5,y6,y7,y9
 
 # GPS
 persist.vendor.overlay.izat.optin=rro
+
+# Graphics
+debug.hwui.skia_atrace_enabled=false
+dev.pm.dyn_samplingrate=1
+persist.demo.hdmirotationlock=false
+sdm.debug.disable_skip_validate=1
 
 # Media
 media.settings.xml=/vendor/etc/media_profiles_vendor.xml
@@ -69,6 +67,9 @@ vendor.perf.gestureflingboost.enable=true
 
 # QC framework value-adds
 ro.vendor.qti.va_aosp.support=1
+
+# Radio - IMS
+persist.dbg.ims_volte_enable=1
 
 # RIL
 DEVICE_PROVISIONED=1

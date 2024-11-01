@@ -27,6 +27,19 @@
 #
 #
 
+on init
+    write /dev/stune/foreground/schedtune.sched_boost_no_override 1
+    write /dev/stune/top-app/schedtune.sched_boost_no_override 1
+    write /dev/stune/schedtune.colocate 0
+    write /dev/stune/background/schedtune.colocate 0
+    write /dev/stune/foreground/schedtune.colocate 0
+    write /dev/stune/top-app/schedtune.colocate 1
+
+    write /sys/devices/virtual/graphics/fb0/idle_time 100
+
+    # Enable suspend to RAM
+    write /sys/power/mem_sleep "deep"
+
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
@@ -74,6 +87,9 @@ on post-fs
     start vendor.qseecomd
     wait_for_prop vendor.sys.listeners.registered true
 
+on init
+    write /sys/module/qpnp_rtc/parameters/poweron_alarm 1
+
 on early-boot
     chown system system /mnt/vendor/persist/sensors
     chown system system /mnt/vendor/persist/sensors/sns.reg
@@ -83,15 +99,17 @@ on early-boot
 on boot
     start vendor.rmt_storage
     start vendor.rfs_access
+    write /dev/cpuset/top-app/cpus 0-7
+    write /dev/cpuset/foreground/cpus 0-7
+    write /dev/cpuset/foreground/boost/cpus 0-7
+    write /dev/cpuset/background/cpus 0-7
+    write /dev/cpuset/system-background/cpus 0-7
 
     # Fingerprint permissions
     chmod 0666 /dev/fpsdev0
     chown system system /dev/fpsdev0
     chmod 0666 /dev/goodix_fp
     chown system system /dev/goodix_fp
-
-# Disable surfaceflinger prime_shader
-    setprop service.sf.prime_shader_cache 0
 
     # Wifi firmware reload path
     chown wifi wifi /sys/module/wlan/parameters/fwpath
@@ -112,6 +130,10 @@ on boot && property:persist.vendor.usb.controller.default=*
 on property:vendor.usb.controller=*
     setprop sys.usb.controller ${vendor.usb.controller}
     write /sys/module/usb_f_qcrndis/parameters/rndis_dl_max_xfer_size 15916
+
+on property:sys.boot_completed=1
+    # Enable PowerHAL hint processing
+    setprop vendor.powerhal.init 1
 
 #Peripheral manager
 service vendor.per_mgr /system/vendor/bin/pm-service
@@ -149,11 +171,19 @@ service thermal-engine /system/vendor/bin/thermal-engine
 
 on property:sys.boot_completed=1
    start thermal-engine
-# Enable surfaceflinger prime_shader
-    setprop service.sf.prime_shader_cache 1
 
 service vendor.pd_mapper /system/vendor/bin/pd-mapper
      class core
+
+service dcvs-sh /vendor/bin/init.qti.dcvs.sh
+    class late_start
+    user root
+    group root system
+    disabled
+    oneshot
+
+on property:vendor.dcvs.prop=1
+   start dcvs-sh
 
 service ppd /system/vendor/bin/mm-pp-dpps
     class late_start
@@ -179,3 +209,26 @@ on property:init.svc.zygote=running
 
 on property:init.svc.zygote=restarting
     stop ppd
+
+on property:init.svc.vendor.charger=running
+    # Keep one LITTLE and one BIG
+    write /sys/devices/system/cpu/cpu1/online 0
+    write /sys/devices/system/cpu/cpu2/online 0
+    write /sys/devices/system/cpu/cpu3/online 0
+    write /sys/devices/system/cpu/cpu5/online 0
+    write /sys/devices/system/cpu/cpu6/online 0
+    write /sys/devices/system/cpu/cpu7/online 0
+
+    start qcom-post-boot
+    start vendor.hvdcp_opti
+    setprop vendor.usb.controller a800000.dwc3
+    setprop sys.usb.configfs 1
+    start vendor.power_off_alarm
+
+on property:init.svc.vendor.qcrild=stopped
+    stop vendor.radio-config-1-1-wrapper
+
+service vendor.hvdcp_opti /system/vendor/bin/hvdcp_opti
+     class main
+     user root
+     group system wakelock
